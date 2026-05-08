@@ -1,64 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/icon" href="img/icon.png">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<title>Exemplo PHP PW2</title>
-</head>
-
-<h3>Semana 01 - Exemplo 04 - Listagem Geral de Produtos - Imagem</h3>
-
-<body>
 	
-	<main class="container">
-		<?php
-		try {
-			include_once "conexao.php";
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Exemplo PHP PW2</title>
+		<link rel="icon" type="image/icon" href="img\iconphp.png">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/estilo.css">
+		<style>
 
-			// ajustando a instrução select para ordenar por produto
-			$query = mysqli_query($conexao, "select * from tabelaimg order by produto");
+		</style>
+	</head>
+	
+	<body>
+		<main class="container">
+			<h3>Semana 01 - Exemplo 04 - Listagem Geral de Produtos - Imagem</h3>
+			<?php
+            try {
+                include_once "conexao.php";
 
-			// if (!$query) {
-			// 	die('Query Inválida: ' . @mysqli_error($conexao));
-			// }
-		
-			echo "<table border='1px'>";// note que abri echo com aspas para executar
-			//comando html e os atributos das tags com apostrofe 
-			echo '<tr>
-				<th width="30px" align="center">Id</th>
-				<th width="100px">C&oacute;digo</th>
-				<th width="250px">Produto</th>
-				<th width="100px">Valor</th>
-				<th width="100px">Produto</th>
-			</tr>';
+                // ajustando a instrução select para ordenar por produto
+                //$query = mysqli_query($conexao, "select * from tabelaimg order by produto");
+                $query = $conexao->query("select * from tabelaimg order by produto");
+                //vai usar try e catch
+                // if (!$query) {
+                // 	die('Query Inválida: ' . @mysqli_error($conexao));
+                // 	}
 
-			while ($dados = mysqli_fetch_array($query)) {
-				echo "<tr>";
-				echo "<td align='center'>" . $dados['id'] . "</td>";
-				echo "<td>" . $dados['codigo'] . "</td>";
-				echo "<td>" . $dados['produto'] . "</td>";
-				echo "<td align='right'> R$ " . $dados['valor'] . "</td>";
-				// buscando a na pasta imagem
-				echo "<td><img src='img/" . $dados['imagem'] . "'></td>";
-				echo "</tr>";
-			}
-			echo "</table>";
+                echo "<table class=\"table table-secondary table-hover\">";// note que abri echo com aspas para executar
+                //comando html e os atributos das tags com apostrofe
+                echo '<tr>
+                        <th width="30px" align="center">Id</th>
+                        <th width="100px">C&oacute;digo</th>
+                        <th width="250px">Produto</th>
+                        <th width="100px">Valor</th>
+                        <th width="100px">Produto</th>
+					</tr>';
 
-			//mysqli_close($conexao);
-		} catch (Exception $e) {
-			echo "<div class=\"alert alert-danger\" role=\"alert\>\n
-				<h2> Aconteceu um erro: <br>\n
-				{$e->getMessage()}
-				</div>";
-			
-		}
+                while ($dados = mysqli_fetch_array($query)) {
+                    echo "<tr>";
+                    echo "<td align='center'>" . $dados['id'] . "</td>";
+                    echo "<td>" . $dados['codigo'] . "</td>";
+                    echo "<td>" . $dados['produto'] . "</td>";
+                    echo "<td align='right'> R$ " . $dados['valor'] . "</td>";
+                    // buscando a na pasta imagem
+                    echo "<td><img src='img/" . $dados['imagem'] . "'></td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
 
-		?>
-	</main>
-	<script src="js/bootstrap.bundle.min.js"></script>
-</body>
+                //mysqli_close($conexao);
+            } catch (Exception $e) {
+                echo "<div class=\"alert alert-danger\" role=\"alert\"><h2> Aconteceu um erro: <br>\n {$e->getMessage()}\n</h2></div>";
+            }
+			?>
+	    </main>
+	    <script src="js/bootstrap.bundle.min.js"></script>
+	</body>
 
 </html>
