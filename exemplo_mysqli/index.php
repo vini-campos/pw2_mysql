@@ -9,7 +9,12 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/estilo.css">
 		<style>
-
+            .centraliza {
+                text-align: center;
+            }
+            .foto {
+                width: 150px;
+            }
 		</style>
 	</head>
 	
@@ -22,37 +27,47 @@
 
                 // ajustando a instrução select para ordenar por produto
                 //$query = mysqli_query($conexao, "select * from tabelaimg order by produto");
-                $query = $conexao->query("select * from tabelaimg order by produto");
+                $sql = "select * from tabelaimg order by produto";
+                $query = $conexao->query($sql);
+
                 //vai usar try e catch
                 // if (!$query) {
                 // 	die('Query Inválida: ' . @mysqli_error($conexao));
                 // 	}
 
-                echo "<table class=\"table table-secondary table-hover\">";// note que abri echo com aspas para executar
+                echo "<table class=\"table table-info table-hover\">";// note que abri echo com aspas para executar
                 //comando html e os atributos das tags com apostrofe
-                echo '<tr>
-                        <th width="30px" align="center">Id</th>
-                        <th width="100px">C&oacute;digo</th>
-                        <th width="250px">Produto</th>
-                        <th width="100px">Valor</th>
-                        <th width="100px">Produto</th>
-					</tr>';
+                echo "<tr>
+                        <th width=\"30px\">Id</th>
+                        <th width=\"100px\">C&oacute;digo</th>
+                        <th width=\"250px\">Produto</th>
+                        <th width=\"100px\">Valor</th>
+                        <th width=\"100px\">Produto</th>
+					</tr>\n";
 
                 while ($dados = mysqli_fetch_array($query)) {
-                    echo "<tr>";
-                    echo "<td align='center'>" . $dados['id'] . "</td>";
-                    echo "<td>" . $dados['codigo'] . "</td>";
-                    echo "<td>" . $dados['produto'] . "</td>";
-                    echo "<td align='right'> R$ " . $dados['valor'] . "</td>";
+                    echo "<tr>\n";
+                    echo "<td class=\"centraliza\">" . $dados['id'] . "</td>\n";
+                    echo "<td>" . $dados['codigo'] . "</td>\n";
+                    echo "<td>" . $dados['produto'] . "</td>\n";
+                    echo "<td> R$ " . number_format( $dados['valor'],2,",",".") . "</td>\n";
                     // buscando a na pasta imagem
-                    echo "<td><img src='img/" . $dados['imagem'] . "'></td>";
-                    echo "</tr>";
+                    if (empty($dados['imagem'])){
+                        $imagem = "SemImagem.png";
+                    }else{
+                        $imagem = $dados['imagem'];
+                    }
+                    echo "<td><img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\"></td>\n";
+                    echo "</tr>\n";
                 }
                 echo "</table>";
 
                 //mysqli_close($conexao);
             } catch (Exception $e) {
-                echo "<div class=\"alert alert-danger\" role=\"alert\"><h2> Aconteceu um erro: <br>\n {$e->getMessage()}\n</h2></div>";
+                echo "<div
+                    class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"><h2> Aconteceu um erro: <br>\n {$e->getMessage()}\n</h2>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" arealabel=\"Close\"></button>
+                </div>";
             }
 			?>
 	    </main>
