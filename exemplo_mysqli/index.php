@@ -57,7 +57,9 @@
                     }else{
                         $imagem = $dados['imagem'];
                     }
-                    echo "<td><img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\"></td>\n";
+                    $id = $dados['id'];
+                    echo "<td><a href=\"verproduto.php?id=$id\">\n
+                        img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\"></td>\n";
                     echo "</tr>\n";
                 }
                 echo "</table>";
