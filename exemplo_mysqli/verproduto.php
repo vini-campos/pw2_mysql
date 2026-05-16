@@ -55,15 +55,15 @@
             }
 			?>
             <?php if (!empty($codigo)): ?>
-                <div class="card shadow" style="width: 35rem;">
-                <img src="img/<?php echo $imagem?>" class="img-thumbnail img-fluid" alt="<?php echo $produto?>">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $produto?></h5>
-                    <p class="card-text"><?php echo "código: " . $codigo?></p>
-                    <p class="card-text"><?php echo $descricao?></p>
-                    <p class="card-text"><?php echo $valor?></p>
-                    <a href="index.php" class="btn btn-primary">voltar</a>
-                </div>
+                <div class="card shadow" style="width: 18rem;">
+                    <img src="img/<?php echo $imagem?>" class="img-thumbnail img-fluid" alt="<?php echo $produto?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $produto?></h5>
+                        <p class="card-text"><?php echo "código: " . $codigo?></p>
+                        <p class="card-text"><?php echo $descricao?></p>
+                        <p class="card-text"><?php echo $valor?></p>
+                        <a href="index.php" class="btn btn-primary">voltar</a>
+                    </div>
                 </div>
 
             <?php else: ?>

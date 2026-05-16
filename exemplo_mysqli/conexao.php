@@ -3,8 +3,8 @@
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $host = "localhost";
     $banco = "banco";
-    $user = "root";
-    $pass = "";
+    $user = "admin_vini";
+    $pass = "Xx_414097879";
 
     try {
         $pdo = new PDO("mysql:host={$host};dbname={$banco}", $user, $pass);
