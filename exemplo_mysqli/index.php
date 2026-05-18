@@ -56,7 +56,9 @@
 						}else{
 							$imagem = $dados['imagem'];
 						}
-						$id = $dados['id'];
+						
+						$id = base64_encode($dados['id']);
+
 						echo "<td >\n
 							<a href='verproduto.php?id=$id'>\n
 								<img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\" >\n

@@ -25,24 +25,43 @@
             try {
                 include_once "conexao.php";
 
-                $id = $_GET["id"];
+                function convertedata($data){
+                    $novadata = substr($data, 8, 2).'/'.substr($data, 5, 2).'/'.substr($data, 0, 4);
+                    return $novadata;
+                }
+
+                //$id = $_GET["id"];
+                // recuperando a informação da URL
+	            // verifica se parâmetro está correto e dento da normalidade 
+                if(isset($_GET['id']) && is_numeric(base64_decode($_GET['id']))){
+                    $id = base64_decode($_GET['id']);
+                } else {
+                    header('Location: index.php');
+                }
+                
 
                 // ajustando a instrução select para ordenar por produto
                 //$query = mysqli_query($conexao, "select * from tabelaimg order by produto");
                 $sql = "select * from tabelaimg where id = $id";
                 $query = $conexao->query($sql);
 
+
+                if($query->num_rows > 0) {
                 $dados = $query->fetch_assoc();// mysqli_fetch_array($query);
 
                 $produto = $dados["produto"];
                 $codigo = $dados["codigo"];
                 $descricao = $dados["descricao"];
+                $data = convertedata($dados["data"]);
                 $valor = " R$: ". number_format($dados["valor"], 2, ",", ".");
 
                 if (empty($dados['imagem'])){
                     $imagem = "SemImagem.png";
                 }else{
                     $imagem = $dados['imagem'];
+                }
+                } else {
+                    throw new Exception("Produto não encontrado!");
                 }
 
             } 
@@ -55,26 +74,25 @@
             }
 			?>
             <?php if (!empty($codigo)): ?>
-                <div class="card shadow" style="width: 18rem;">
-                    <img src="img/<?php echo $imagem?>" class="img-thumbnail img-fluid" alt="<?php echo $produto?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $produto?></h5>
-                        <p class="card-text"><?php echo "código: " . $codigo?></p>
-                        <p class="card-text"><?php echo $descricao?></p>
-                        <p class="card-text"><?php echo $valor?></p>
-                        <a href="index.php" class="btn btn-primary">voltar</a>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="card shadow">
+                            <img src="img/<?php echo $imagem?>" class="img-thumbnail img-fluid" alt="<?php echo $produto?>">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $produto?></h5>
+                                <p class="card-text"><?php echo "código: " . $codigo?></p>
+                                <p class="card-text"><?php echo $descricao?></p>
+                                <p class="card-text"><?php echo $valor?></p>
+                                <p class="card-text"><?php echo $data?></p>
+                                <a href="index.php" class="btn btn-primary">voltar</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             <?php else: ?>
-                <div
-                    class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <h2> 
-                        Aconteceu um erro: <br>Produto não encontrado<br>
-                    </h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" arealabel="Close"></button>
-                </div>";
+                <a href="index.php" class="btn btn-primary">voltar</a>
             <?php endif; ?>
+            
 
 	    </main>
 	    <script src="js/bootstrap.bundle.min.js"></script>
