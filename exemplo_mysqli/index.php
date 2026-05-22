@@ -21,6 +21,14 @@
 	<body>
 		<main class="container">
 			<h3>Semana 01 - Exemplo 04 - Listagem Geral de Produtos - Imagem</h3>
+			<header class="mb-2">
+				<div class="row">
+					<div class="col-4">
+						<a href="incluir.php" class="btn btn-primary">Incluir</a>
+					</div>
+
+				</div>
+			</header>
 			<?php
 			try{
 				include_once "conexao.php";
@@ -33,22 +41,23 @@
 				// if (!$query) {
 				// 	die('Query Inválida: ' . @mysqli_error($conexao));
 				// 	}
-					
-					echo "<table class=\"table table-info table-hover\">";// note que abri echo com aspas para executar
-					//comando html e os atributos das tags com apostrofe 
-					echo "<tr>
-							<th width=\"30px\" align=\"center\">Id</th>
-							<th width=\"100px\">C&oacute;digo</th>
-							<th width=\"250px\">Produto</th>
-							<th width=\"100px\">Valor</th>
-							<th width=\"100px\">Produto</th>
-						</tr>";
-					
+					echo <<<DOC
+						<table class="table table-info table-hover">
+							<tr>
+								<th width="30px" align="center">Id</th>
+								<th width="100px>C&oacute;digo</th>
+								<th width="250px">Produto</th>
+								<th width="100px">Valor</th>
+								<th width="100px">Produto</th>
+								<th width="150px">Ações</th>
+							</tr>\n
+					DOC;
 					while ($dados = mysqli_fetch_array($query)) {
 						echo "<tr >";
 						echo "<td class= \"centraliza\">" . $dados['id'] . "</td>";
 						echo "<td>" . $dados['codigo'] . "</td>";
 						echo "<td>" . $dados['produto'] . "</td>";
+
 						echo "<td > R$ " . number_format($dados['valor'],2,",",".") . "</td>";
 						// buscando a na pasta imagem
 						if (empty($dados['imagem'])){
@@ -64,6 +73,19 @@
 								<img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\" >\n
 							</a>
 						</td>";
+
+						echo "<td>\n <a href='verproduto.php?id=$id' class=\"btn btn-primary\" >\n
+								Visualizar
+							</a>
+							<a href='verproduto.php?id=$id'class=\"btn btn-primary\" >\n
+								Editar
+
+							</a>
+							<a href='verproduto.php?id=$id'class=\"btn btn-primary\" >\n
+								Editar
+
+							</a>
+							</td>";
 						//width='50px' heigth='50px'
 						echo "</tr>";
 						}

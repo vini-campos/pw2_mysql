@@ -25,10 +25,16 @@
             try {
                 include_once "conexao.php";
 
-                function convertedata($data){
-                    $novadata = substr($data, 8, 2).'/'.substr($data, 5, 2).'/'.substr($data, 0, 4);
+                function convertedata2($data){
+                    $data_vetor = explode('-', $data);
+                    $novadata = implode('/', array_reverse ($data_vetor));
                     return $novadata;
                 }
+
+                // function convertedata($data){
+                //     $novadata = substr($data, 8, 2).'/'.substr($data, 5, 2).'/'.substr($data, 0, 4);
+                //     return $novadata;
+                // }
 
                 //$id = $_GET["id"];
                 // recuperando a informação da URL
@@ -52,7 +58,8 @@
                 $produto = $dados["produto"];
                 $codigo = $dados["codigo"];
                 $descricao = $dados["descricao"];
-                $data = convertedata($dados["data"]);
+                $dt =  new DateTime($dados["data"], new DateTimeZone("America/Sao_Paulo"));
+                $data = $dt->format("d/m/Y");
                 $valor = " R$: ". number_format($dados["valor"], 2, ",", ".");
 
                 if (empty($dados['imagem'])){
