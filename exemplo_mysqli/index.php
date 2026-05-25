@@ -20,8 +20,8 @@
 
 <body>
 	<main class="container">
-		<h3>Semana 01 - Exemplo 07 - Listagem Geral de Produtos - Imagem</h3>
-		<header class="mb-2">
+		<h3>Semana 01 - Exemplo 13 - Listagem Geral de Produtos - Imagem</h3>
+		<header class="mb-2"
 			<div class="row">
 				<div class="col-4">
 					<a href="incluir.php" class="btn btn-primary">Incluir</a>
@@ -43,17 +43,16 @@
 			// 	die('Query Inválida: ' . @mysqli_error($conexao));
 			// }
 			echo <<<DOC
-		
-			<table class="table table-info table-hover">
-				<tr>
-					<th width="30px">Id</th>
-					<th width="100px">Código</th>
-					<th width="250px">Produto</th>
-					<th width="100px">Valor</th>
-					<th width="100px">Produto</th>
-					<th width="200px">Ações</th>
-				</tr>\n
-			DOC;	
+				<table class="table table-info table-hover">
+					<tr>
+						<th width="30px">Id</th>
+						<th width="100px">Código</th>
+						<th width="250px">Produto</th>
+						<th width="100px">Valor</th>
+						<th width="100px">Produto</th>
+						<th width="200px">Ações</th>
+					</tr>\n
+				DOC;
 
 			while ($dados = mysqli_fetch_array($query)) {
 				echo "<tr>\n";
@@ -74,18 +73,17 @@
 						<img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\">\n
 					</a>\n
 					</td>\n";
-					echo 
-					"<td>\n 
-						<a href=\"verproduto.php?id=$id\" class=\"btn btn-primary\" >\n
-							Visualizar
+				echo "<td>\n
+						<a href=\"verproduto.php?id=$id\" class=\"btn btn-primary\">\n
+							Visualizar\n
 						</a>&nbsp;&nbsp;\n
-						<a href=\"editar.php?id=$id\" class=\"btn btn-primary\" >\n
-							Editar
+						<a href=\"editar.php?id=$id\" class=\"btn btn-primary\">\n
+							Editar\n
 						</a>&nbsp;&nbsp\n
-						<a href=\"#\"class=\"btn btn-primary\" >\n
-							Apagar
+						<a href=\"#\" class=\"btn btn-primary\">\n
+							Apagar\n
 						</a>\n
-					</td>";
+					</td>\n";
 				echo "</tr>\n";
 			}
 			echo "</table>\n";
